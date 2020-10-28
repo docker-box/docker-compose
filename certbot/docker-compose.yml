@@ -1,0 +1,12 @@
+version: "3"
+services:
+  certbot:
+    image: certbot/certbot
+    container_name: dcertbot
+    volumes:
+    - ./data/etc/letsencrypt:/etc/letsencrypt
+    - ./data/var/lib/letsencrypt:/var/lib/letsencrypt
+    - ./data/var/log/letsencrypt:/var/log/letsencrypt
+    environment:
+      TZ: "UTC"
+    command: certonly
