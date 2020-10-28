@@ -1,0 +1,21 @@
+version: "3"
+services:
+  git:
+    build: .
+    container_name: dgit
+    tty: true
+    volumes:
+      - ${HOME}/go/src:/git
+      - .ssh/:/root/.ssh/
+    environment:
+      TZ: "UTC"
+    entrypoint: ""
+    command:
+      - /bin/sh
+      - -c
+      - |
+        git config --global user.name "fizzday"
+        git config --global user.email "fizzday@yeah.net"
+        git config --global credential.helper store
+        echo "https://${username}:${password}@github.com" > /root/.git-credentials
+        sh

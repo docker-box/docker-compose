@@ -1,0 +1,119 @@
+version: "3"
+services:
+  nginx:
+    image: ${nginx_image}
+    container_name: ${nginx_name}
+    working_dir: ${nginx_work_dir}
+    ports:
+      - ${nginx_bind_port_80}:80
+      - ${nginx_bind_port_443}:443
+      - 8099:8099
+    volumes:
+      - ${nginx_conf}/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ${nginx_confd}:/etc/nginx/conf.d/:ro
+      - ${nginx_log}/:/var/log/nginx/:rw
+      - ${source_dir}/:/var/www/:rw
+    environment:
+      TZ: ${tz}
+    depends_on:
+      - php
+    networks:
+      - default
+
+  php:
+    image: ${php_image}
+    container_name: ${php_name}
+    working_dir: ${php_work_dir}
+    volumes:
+      - ${php_conf}/php.ini:/usr/local/etc/php/php.ini:rw
+      - ${php_conf}/php-fpm.conf:/usr/local/etc/php-fpm.conf:rw
+      - ${php_conf}/www.conf:/usr/local/etc/conf.d/www.conf:rw
+      - ${php_log}/:/var/log/php/:rw
+      - ${source_dir}:/var/www/:rw
+    environment:
+      TZ: ${tz}
+    networks:
+      - default
+
+#  redis:
+#    image: ${redis_image}
+#    container_name: ${redis_name}
+#    volumes:
+#      - ${redis_data_dir}:/data
+#      - ${redis_conf}/redis.conf:/usr/local/etc/redis/redis.conf
+#      - ${redis_log}/:/var/log/redis/
+#    environment:
+#      TZ: ${tz}
+#    restart: always
+#    command: redis-server --requirepass ${redis_password}
+#    ports:
+#      - ${redis_bind_port_6379}:6379
+#    networks:
+#      - default
+#
+#  mysql:
+#    image: ${mysql_image}
+#    container_name: ${mysql_name}
+#    command: ${mysql_cmd}
+#    restart: always
+#    ports:
+#      - ${mysql_bind_port_3306}:3306
+#    volumes:
+#      - ${mysql_data_dir}:/var/lib/mysql
+#      - ${mysql_conf}/my.cnf:/etc/mysql/my.cnf
+#      - ${mysql_log}:/var/log/mysql/
+#    environment:
+#      TZ: ${tz}
+#      MYSQL_ROOT_PASSWORD: ${mysql_password}
+#    networks:
+#      - default
+#
+#  nodejs:
+#    build: ${nodejs_dockerfile}
+#    container_name: ${nodejs_name}
+#    ports:
+#      - ${redis_bind_port_8080}:8080
+#    working_dir: ${nodejs_work_dir}
+#    volumes:
+##      - ${source_dir}:/var/www/:rw
+#      - ${nodejs_pro_dir}:/var/www
+#      - ${nodejs_node_module_dir}:/var/www/node_modules
+#    command: sh -c "npm run serve"
+#    environment:
+#      TZ: ${tz}
+#    networks:
+#      - default
+#
+#  vue:
+#    image: ${vue_image}
+#    container_name: ${vue_name}
+#    working_dir: ${vue_work_dir}
+#    ports:
+#      - ${vue_bind_port_8080}:8080
+#      - 8082:8082
+#    volumes:
+#      - ${vue_pro_dir}:/var/www
+#      - ${vue_node_module_dir}:/var/www/node_modules
+#    command: sh -c ${vue_cmd}
+#    environment:
+#      TZ: ${tz}
+#    networks:
+#      - default
+
+  mfb:
+    image: ${mfb_image}
+    container_name: ${mfb_name}
+    working_dir: ${mfb_work_dir}
+    ports:
+      - ${mfb_bind_port_8080}:8080
+    volumes:
+      - ${mfb_pro_dir}:/var/www
+      - ${mfb_node_module_dir}:/var/www/node_modules
+    command: sh -c ${vue_cmd}
+    environment:
+      TZ: ${tz}
+    networks:
+      - default
+
+networks:
+  default:

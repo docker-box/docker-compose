@@ -1,0 +1,21 @@
+version: "3"
+services:
+    mysql:
+      image: ${mysql_image}
+      container_name: ${mysql_name}
+      command: ${mysql_cmd}
+      tty: true
+      ports:
+        - ${mysql_bind_port_3306}:3306
+      volumes:
+        - ${mysql_data_dir}:/var/lib/mysql
+        - ${mysql_conf}/my.cnf:/etc/mysql/my.cnf
+        - ${mysql_log}:/var/log/mysql/
+      environment:
+        TZ: ${tz}
+        MYSQL_ROOT_PASSWORD: ${mysql_password}
+      networks:
+        - default
+
+networks:
+  default:

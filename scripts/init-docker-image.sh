@@ -1,0 +1,1 @@
+sudo docker pull mysql && sudo docker pull alpine && sudo docker pull redis:alpine

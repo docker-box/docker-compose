@@ -1,0 +1,56 @@
+######################### common ########################
+source_dir=../www
+tz=Asia/Shanghai
+
+######################### nginx ########################
+# 镜像
+nginx_image=nginx:alpine
+# 日志目录
+nginx_log=../nginx/log
+# 配置目录
+nginx_conf=../nginx/conf
+nginx_confd=../nginx/conf/conf.d/
+# 容器名字
+nginx_name=dnginx
+# 宿主机映射的80端口为
+nginx_bind_port_80=80
+# 宿主机映射的443端口为
+nginx_bind_port_443=443
+# 工作目录
+nginx_work_dir=/var/www
+
+######################### php ########################
+php_image=ababy/php
+php_log=../php/log/
+php_ini=../php/conf/php.ini
+php_fpm_conf=../php/conf/php-fpm.conf
+php_www_conf=../php/conf/www.conf
+php_name=dphp
+# 工作目录
+php_work_dir=/var/www
+
+######################### mysql ########################
+mysql_image=mysql
+mysql_name=dmysql
+mysql_log=../mysql/log
+mysql_conf=../mysql/conf
+mysql_password=123456
+# binlog目录
+mysql_data_dir=../mysql/data
+# 宿主机映射的6379端口为
+mysql_bind_port_3306=3306
+###### mysql 8.0 使用这个 ######
+mysql_cmd='--default-authentication-plugin=mysql_native_password'
+###### mysql 5.7 使用这个 ######
+# mysql_cmd='mysqld --character-set-server=utf8'
+
+######################### redis ########################
+redis_image=redis:alpine
+redis_log=../redis/log
+redis_conf=../redis/conf
+redis_password=123456
+# redis持久化目录
+redis_data_dir=../redis/data
+redis_name=dredis
+# 宿主机映射的6379端口为
+redis_bind_port_6379=6379

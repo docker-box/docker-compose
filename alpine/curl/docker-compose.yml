@@ -1,0 +1,43 @@
+version: "3"
+services:
+  alpine:
+    build: .
+    container_name: dcurl
+    tty: true
+    volumes:
+    - ./data:/data
+    environment:
+      TZ: "UTC"
+
+  alpine2:
+    image: curl_alpine
+    container_name: dcurl2
+    tty: true
+    volumes:
+      - ./data:/data
+    environment:
+      TZ: "UTC"
+  alpine3:
+    image: curl_alpine
+    container_name: dcurl3
+    tty: true
+    volumes:
+      - ./data:/data
+    environment:
+      TZ: "UTC"
+  alpine4:
+    image: curl_alpine
+    container_name: dcurl4
+    tty: true
+    volumes:
+      - ./data:/data
+    environment:
+      TZ: "UTC"
+  alpine5:
+    image: curl_alpine
+    container_name: dcurl5
+    tty: true
+    volumes:
+      - ./data:/data
+    environment:
+      TZ: "UTC"

@@ -1,0 +1,21 @@
+version: "3"
+services:
+  redis:
+    image: ${redis_image}
+    container_name: ${redis_name}
+    volumes:
+      - ${redis_data_dir}:/data
+      - ${redis_conf}/redis.conf:/usr/local/etc/redis/redis.conf
+      - ${redis_log}/:/var/log/redis/
+    environment:
+      TZ: ${tz}
+    restart: always
+    # command: redis-server /usr/local/etc/redis/redis.conf --requirepass ${redis_password}
+    command: redis-server /usr/local/etc/redis/redis.conf
+    ports:
+      - ${redis_bind_port_6379}:6379
+    networks:
+      - default
+
+networks:
+  default:
